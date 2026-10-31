@@ -1,0 +1,25 @@
+# Render Blueprint for the API (Dashboard → New → Blueprint → pick this repo).
+# The database is MongoDB Atlas and the client is on Vercel, so only the server lives here.
+services:
+  - type: web
+    name: notenest-api
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: server
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true # Render creates a long random secret
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: MONGO_URI
+        sync: false # paste the MongoDB Atlas connection string in the dashboard
+      - key: CLIENT_ORIGIN
+        sync: false # paste the Vercel URL in the dashboard
