@@ -1,6 +1,8 @@
 # Local MongoDB for development:  docker compose up -d mongo
 services:
   mongo:
+    # If this container exits with "Linux kernel versions 6.19 and newer has a known
+    # incompatibility", change the image to mongo:7 (see MongoDB issue SERVER-121912).
     image: mongo:8
     container_name: notenest-mongo
     ports:
