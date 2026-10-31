@@ -17,8 +17,14 @@ jobs:
         image: mongo:8
         ports:
           - 27017:27017
+        # GitHub waits until this passes, so tests never start before MongoDB is ready.
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ping: 1}).ok'"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
     env:
-      MONGO_URI_TEST: mongodb://localhost:27017/notenest_test
+      MONGO_URI_TEST: mongodb://127.0.0.1:27017/notenest_test
       JWT_SECRET: ci-test-secret
     steps:
       - uses: actions/checkout@v7
