@@ -10,4 +10,6 @@ router.get('/health', (req, res) => {
   res.status(dbUp ? 200 : 503).json({ status: dbUp ? 'ok' : 'degraded', database: dbUp ? 'up' : 'down' });
 });
 
+router.use('/auth', require('./auth.routes'));
+
 module.exports = router;
