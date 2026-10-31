@@ -14,7 +14,9 @@ jobs:
         working-directory: server
     services:
       mongo:
-        image: mongo:8
+        # mongo:8 refuses to start on the runners' Linux kernel 6.19+ (MongoDB issue
+        # SERVER-121912), so CI uses MongoDB 7. The app code works the same on both.
+        image: mongo:7
         ports:
           - 27017:27017
         # GitHub waits until this passes, so tests never start before MongoDB is ready.
