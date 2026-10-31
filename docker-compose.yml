@@ -1,0 +1,17 @@
+# Local MongoDB for development:  docker compose up -d mongo
+services:
+  mongo:
+    image: mongo:8
+    container_name: notenest-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - notenest-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  notenest-data:
