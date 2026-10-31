@@ -11,5 +11,6 @@ router.get('/health', (req, res) => {
 });
 
 router.use('/auth', require('./auth.routes'));
+router.use('/notes', require('./note.routes'));
 
 module.exports = router;
